@@ -13,12 +13,14 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { api } from "../Networking/Interceptor";
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
+import { Alert } from "@mui/material";
 
 const theme = createTheme();
 
 export function SignIn() {
 
     const [auth, setAuth] = useState(false)
+    const [error, setError] =useState(false);
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -36,6 +38,10 @@ export function SignIn() {
         }
     }).catch((e) => {
         console.log(e.response.data);
+        setError(true)
+        setTimeout(() => {
+          setError(false)
+        }, 3000)
     });
   };
 
@@ -98,6 +104,9 @@ export function SignIn() {
             >
               Sign In
             </Button>
+            {
+              error ? <Alert severity="error">Valami hiba történt</Alert> : null
+            }
           </Box>
         </Box>
       </Container>

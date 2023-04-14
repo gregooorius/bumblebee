@@ -10,7 +10,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import axios from "axios";
+import { api } from "../Networking/Interceptor";
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
 
@@ -26,7 +26,7 @@ export function SignIn() {
       email: data.get("username"),
       password: data.get("password"),
     });
-    await axios.post("http://localhost:8080/api/login", {
+    await api.post("/api/login", {
       username: data.get("username"),
       password: data.get("password"),
     }).then((resp) => {
@@ -34,7 +34,6 @@ export function SignIn() {
         if (resp.data.authenticated) {
           setAuth(true);
         }
-        
     }).catch((e) => {
         console.log(e.response.data);
     });

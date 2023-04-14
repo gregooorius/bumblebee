@@ -1,35 +1,45 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import {
+  Navigate,
+  RouterProvider,
+  createBrowserRouter,
+} from "react-router-dom";
+import { Products } from "./Components/Products";
+import { Provider } from "react-redux";
+import { store } from "./store";
+import { Basket } from "./Components/Basket";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Navigate to={"/login"} replace={true}/>,
+    element: <Navigate to={"/login"} replace={true} />,
   },
   {
     path: "/login",
-    element: <App/>
+    element: <App />,
   },
   {
     path: "/termekek",
-    element: <div>Termékek</div>,
+    element: <Products />,
   },
   {
     path: "/kosar",
-    element: <div>Kosár</div>,
+    element: <Basket/>,
   },
 ]);
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );
 
